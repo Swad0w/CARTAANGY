@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Historia ❤️</title>
+
+<style>
+
+/* 🌙 Fondo romántico animado */
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #ffafbd, #ffc3a0, #ffdde1);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+    overflow-x: hidden;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 💌 Intro */
+.intro {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    text-align: center;
+}
+
+.intro button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background: #e91e63;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.intro button:hover {
+    background: #c2185b;
+    transform: scale(1.1);
+}
+
+.hidden {
+    display: none;
+}
+
+/* 📖 Carta */
+.container {
+    padding: 60px 20px;
+}
+
+.letter {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    position: relative;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    text-align: center;
+    color: #e91e63;
+}
+
+.timeline {
+    margin: 40px 0;
+}
+
+.event {
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border-left: 3px solid #e91e63;
+}
+
+/* 🖼 Galería */
+.gallery {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.gallery img {
+    width: 200px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.1);
+}
+
+/* 🎥 Video */
+video {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 15px;
+}
+
+/* 💖 Final */
+.final {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 🌸 Pétalos */
+.petal {
+    position: fixed;
+    top: -10px;
+    animation: fall linear forwards;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+/* 🖼 Modal */
+.modal {
+    display: none;
+    position: fixed;
+    background: rgba(0,0,0,0.8);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.modal img {
+    max-width: 80%;
+    border-radius: 20px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- 💌 Pantalla de inicio -->
+<div class="intro">
+    <h1>Hay algo que quiero decirte...</h1>
+    <button onclick="openLetter()">Abrir ❤️</button>
+</div>
+
+<!-- 🎵 Música -->
+<audio id="music" loop>
+    <source src="music/cancion.mp3" type="audio/mp3">
+</audio>
+
+<!-- 📖 Contenido -->
+<div class="container hidden">
+    <div class="letter">
+
+        <h1>Nuestra Historia</h1>
+
+        <p>
+            Todo comenzó cuando menos lo esperaba...
+            Y sin darme cuenta, te convertiste en alguien
+            imposible de ignorar.
+        </p>
+
+        <h2>Nuestra Línea del Tiempo 🕰</h2>
+
+        <div class="timeline">
+            <div class="event">
+                <span>El día que nos conocimos</span>
+                <p>Ese momento cambió todo.</p>
+            </div>
+            <div class="event">
+                <span>Nuestra primera conversación larga</span>
+                <p>Ahí supe que eras diferente.</p>
+            </div>
+            <div class="event">
+                <span>El día que entendí lo que sentía</span>
+                <p>Y ya no hubo vuelta atrás.</p>
+            </div>
+        </div>
+
+        <h2>Recuerdos 📸</h2>
+
+        <div class="gallery">
+            <img src="img/foto1.jpg" onclick="openModal(this)">
+            <img src="img/foto2.jpg" onclick="openModal(this)">
+        </div>
+
+        <h2>Un momento especial 🎥</h2>
+
+        <video controls>
+            <source src="video/recuerdo.mp4" type="video/mp4">
+        </video>
+
+        <p class="final">
+            Y si el destino volvió a cruzar nuestros caminos,
+            no pienso soltar tu mano esta vez. 💞
+        </p>
+
+    </div>
+</div>
+
+<!-- 🖼 Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+    <img id="modalImg">
+</div>
+
+<script>
+
+/* 💌 Abrir carta */
+function openLetter() {
+    document.querySelector(".intro").style.display = "none";
+    document.querySelector(".container").classList.remove("hidden");
+    document.getElementById("music").play();
+}
+
+/* 🖼 Modal imágenes */
+function openModal(img) {
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("modalImg").src = img.src;
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+/* 🌸 Pétalos cayendo */
+function createPetal() {
+    const petal = document.createElement("div");
+    petal.classList.add("petal");
+    petal.innerHTML = "🌸";
+
+    petal.style.left = Math.random() * window.innerWidth + "px";
+    petal.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    petal.style.fontSize = (Math.random() * 15 + 15) + "px";
+
+    document.body.appendChild(petal);
+
+    setTimeout(() => {
+        petal.remove();
+    }, 10000);
+}
+
+setInterval(createPetal, 400);
+
+</script>
+
+</body>
+</html>
